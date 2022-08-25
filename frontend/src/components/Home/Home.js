@@ -1,18 +1,42 @@
-import {  Typography } from "@material-ui/core";
-import {Link} from "react-router-dom";
+import {  Container, Grow, Grid } from "@material-ui/core";
 import useStyles from './styles';
-import memories from '../../images/head.jpg';
+import React, {useEffect, useState} from "react";
+import { useDispatch} from 'react-redux';
+
+import {getPosts} from '../../actions/posts'
+
+
+import Posts from '../Posts/Posts'
+import Form from '../Forms/Form';
+import Navbar from "../Navbar/Navbar";
+
 
 
 const Home = () => {
+    const [currentId, setCurrentId] = useState(null)
     const classes = useStyles();
+    const dispatch = useDispatch(); 
 
+    useEffect(() =>{
+        dispatch(getPosts());
+    }, [currentId, dispatch])
 
     return (
-        <div>
-            <Typography className={classes.heading} component={Link} to="/" variant="h2" align="center">Memories</Typography>
-            <img className={classes.image} src={memories} alt="memories" height="60"/>
-        </div>
+        <Container>
+            <Navbar />
+            <Grow in>
+                <Container >
+                    <Grid className={classes.mainContainer} container justifyContent="space-between" alignItems="stretch" spacing={3}>
+                        <Grid item xs={12} sm={7}>
+                            <Posts setCurrentId={setCurrentId} />
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <Form currentId={currentId} setCurrentId={setCurrentId} />
+                        </Grid>
+                    </Grid>
+                </Container>
+            </Grow>
+        </Container>
     )
                 
 }
