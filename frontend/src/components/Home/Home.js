@@ -8,7 +8,7 @@ import {getPosts} from '../../actions/posts'
 
 import Posts from '../Posts/Posts'
 import Form from '../Forms/Form';
-import Navbar from "../Navbar/Navbar";
+
 
 
 
@@ -23,7 +23,6 @@ const Home = () => {
 
     return (
         <Container>
-            <Navbar />
             <Grow in>
                 <Container >
                     <Grid className={classes.mainContainer} container justifyContent="space-between" alignItems="stretch" spacing={3}>
