@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 
+
 import Input from './Input'
 
 const Auth = () => {
+
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
     const classes = useStyles();
@@ -22,6 +24,7 @@ const Auth = () => {
     const handleOnSubmit = ()=>{
         
     }
+
     const switchMode = () =>{
         setIsSignUp((prevIsSignUp)=>!prevIsSignUp)
         console.log(showPassword)
@@ -37,6 +40,7 @@ const Auth = () => {
                 <Typography variant='h5'>{isSignUp ? 'Sign up' : 'Sign in'}</Typography>
                 <form className={classes.form} onSubmit={handleOnSubmit}>
                     <Grid container spacing={2}>
+
                         {isSignUp &&
                             <>
                             <Input name='firstName' label='First Name' handleOnChange={handleOnChange} autoFocus half/>
@@ -49,6 +53,7 @@ const Auth = () => {
                         {isSignUp &&
                             <Input name='confirmPassword' label='Repeat Password' handleOnChange={handleOnChange} type='password' />
                         }
+
                         <Button className={classes.submit} type='submit' color='primary' fullWidth variant='contained'>
                             {isSignUp ? 'Sign Up' : 'Sign In'}
                         </Button>
