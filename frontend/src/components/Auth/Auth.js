@@ -68,7 +68,6 @@ const Auth = () => {
                     </Grid>
                 </Grid>
             </Paper>  
-            <Button color='primary' variant='contained' onClick={handleShowPassword}>HAHA</Button>
         </Container>
     )
 
