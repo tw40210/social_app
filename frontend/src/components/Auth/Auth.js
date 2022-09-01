@@ -1,18 +1,35 @@
 import { Avatar, Button, Container, Grid, Paper, Typography } from '@material-ui/core';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login'
-
+import { gapi } from 'gapi-script'
 
 import Input from './Input'
 import Icon from './Icon'
+
+const client_id = '196984472269-siko9nc75c0gnemha83cca3qv1sc1lvg.apps.googleusercontent.com'
 
 const Auth = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(()=>{
+        const start = ()=>{
+            gapi.client.init({
+                client_id : client_id,
+                scope : ''
+            })
+        }
+        gapi.load('client:auth2', start)
+    })
+
 
     const handleShowPassword = () =>{
         setShowPassword((prevShowPassword)=>!prevShowPassword)
@@ -31,7 +48,14 @@ const Auth = () => {
     } 
 
     const googleSuccess = (res)=>{
-        console.log(res)
+        const result = res?.profileObj;
+        const token = res?.tokenObj;
+
+
+        console.log("Login successfully!")
+        console.log(res)    
+        dispatch({type: 'AUTH', data: {result, token}})
+        history.push('/')
 
     }
     const googleFailure = (e)=>{
@@ -67,16 +91,18 @@ const Auth = () => {
                             {isSignUp ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin 
-                    clientId='196984472269-siko9nc75c0gnemha83cca3qv1sc1lvg.apps.googleusercontent.com'
+                    clientId={client_id}
                     render={(renderProps)=>(
                         <Button className='{classes.submit}' color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon/>} variant='contained'>
                             Google Sign in 
                         </Button>
                         )
                     }
+                    buttonText='Login'
                     onSuccess={googleSuccess}
                     onFailure={googleFailure}
                     cookiePolicy='single_host_origin'
+                    isSignedIn={true}
 
                     />
 
