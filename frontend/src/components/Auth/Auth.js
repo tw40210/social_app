@@ -3,22 +3,25 @@ import React, {useState, useEffect} from 'react';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login'
 import { gapi } from 'gapi-script'
 
 import Input from './Input'
 import Icon from './Icon'
+import { signIn, signUp } from '../../actions/auth'
 
 const client_id = '196984472269-siko9nc75c0gnemha83cca3qv1sc1lvg.apps.googleusercontent.com'
+const Initial_state = {'firstName':'', 'lastName':'', 'email':'', 'password':'', 'confirmPassword':''}
 
 const Auth = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
+    const [formState, setFormState]= useState(Initial_state)
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const start = ()=>{
@@ -28,19 +31,26 @@ const Auth = () => {
             })
         }
         gapi.load('client:auth2', start)
-    })
+    }, [])
 
 
     const handleShowPassword = () =>{
         setShowPassword((prevShowPassword)=>!prevShowPassword)
     } 
 
-    const handleOnChange = ()=>{
-
+    const handleOnChange = (e)=>{
+        setFormState({...formState, [e.target.name]: e.target.value})
     }
     
-    const handleOnSubmit = ()=>{
-        
+    const handleOnSubmit = (e)=>{
+        e.preventDefault()
+        console.log(formState)
+
+        if(isSignUp){
+            dispatch(signIn);
+        } else{
+            dispatch(signUp);
+        }
     }
 
     const switchMode = () =>{
@@ -55,7 +65,7 @@ const Auth = () => {
         console.log("Login successfully!")
         console.log(res)    
         dispatch({type: 'AUTH', data: {result, token}})
-        history.push('/')
+        navigate('/')
 
     }
     const googleFailure = (e)=>{
@@ -76,7 +86,7 @@ const Auth = () => {
                         {isSignUp &&
                             <>
                             <Input name='firstName' label='First Name' handleOnChange={handleOnChange} autoFocus half/>
-                            <Input name='firstName' label='First Name' handleOnChange={handleOnChange} half/>
+                            <Input name='lastName' label='Last Name' handleOnChange={handleOnChange} half/>
                             </>
                             }
 
@@ -102,7 +112,7 @@ const Auth = () => {
                     onSuccess={googleSuccess}
                     onFailure={googleFailure}
                     cookiePolicy='single_host_origin'
-                    isSignedIn={true}
+                    // isSignedIn={true}
 
                     />
 
