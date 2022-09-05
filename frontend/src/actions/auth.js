@@ -1,8 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+import * as api from '../api';
 
-export const signIn = () => async (dispatch) => {
-    const navigate = useNavigate()
+export const signIn = (formData, navigate) => async (dispatch) => {
+    // const navigate = useNavigate()
     try {
+        console.log(formData)
+        const { data } = await api.signIn(formData)
+        dispatch({type:'AUTH', data})
+
         navigate('/');
     } catch (error) {
         console.log(error.message); 
@@ -11,10 +17,13 @@ export const signIn = () => async (dispatch) => {
 }
 
 
-export const signUp = () => async (dispatch) => {
+export const signUp = (formData, navigate) => async (dispatch) => {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     try {
+        const { data } = await api.signUp(formData)
+        dispatch({type:'AUTH', data})
+
         navigate('/');
     } catch (error) {
         console.log(error.message); 

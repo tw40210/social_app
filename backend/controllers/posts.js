@@ -54,7 +54,7 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
 
     const {id: _id, like: _like} = req.params;
-    if (!req?.userId) return res.status(400).json({message:"Unauthenticated"})
+    if (!req.userId) return res.status(400).json({message:"Unauthenticated"})
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id!')
     const post = await PostMessage.findById(_id)

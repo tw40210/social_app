@@ -47,9 +47,9 @@ const Auth = () => {
         console.log(formState)
 
         if(isSignUp){
-            dispatch(signIn);
+            dispatch(signUp(formState, navigate));
         } else{
-            dispatch(signUp);
+            dispatch(signIn(formState, navigate));
         }
     }
 
