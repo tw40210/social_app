@@ -2,9 +2,9 @@ import jwt from "jsonwebtoken";
 
 const secret = 'test';
 
-const Auth = async (req, res) =>{
+const Auth = async (req, res, next) =>{
     try {
-        const token = req.headers.authoriztion.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1];
         const isCustomAuth = token.length <500;
 
         let decodedData;

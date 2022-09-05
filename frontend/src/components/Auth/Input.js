@@ -21,7 +21,7 @@ const Input = ({name, handleOnChange, label, autoFocus, type, handleShowPassword
                 InputProps={name==='password' ? {
                     endAdornment:(
                         <InputAdornment  position='end'>
-                            <IconButton onClick={handleShowPassword}>
+                            <IconButton aria-label="toggle password visibility" onClick={handleShowPassword}>
 
                                 {type==='password' ?<Visibility/>: <VisibilityOff/>}
                             </IconButton>
