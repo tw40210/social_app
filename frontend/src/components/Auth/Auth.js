@@ -63,7 +63,6 @@ const Auth = () => {
 
 
         console.log("Login successfully!")
-        console.log(res)    
         dispatch({type: 'AUTH', data: {result, token}})
         navigate('/')
 

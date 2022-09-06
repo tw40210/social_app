@@ -5,7 +5,6 @@ import * as api from '../api';
 export const signIn = (formData, navigate) => async (dispatch) => {
     // const navigate = useNavigate()
     try {
-        console.log(formData)
         const { data } = await api.signIn(formData)
         dispatch({type:'AUTH', data})
 
