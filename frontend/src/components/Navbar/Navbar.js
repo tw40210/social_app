@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Avatar, Button, Container, Toolbar, Typography } from "@material-ui/core";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -34,10 +34,10 @@ const Navbar = () => {
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
-            <div>
+            <Container>
                 <Typography className={classes.heading} component={Link} to="/" variant="h2" align="center">Memories</Typography>
                 <img className={classes.image} src={memories} alt="memories" height="60"/>
-            </div>
+            </Container>
             <Toolbar >
             {user ? (
                 <div className={classes.profile}>
