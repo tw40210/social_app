@@ -2,6 +2,9 @@ import { AppBar, Avatar, Button, Container, Toolbar, Typography } from "@materia
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+
+import memoriesLogo from '../../images/memoriesLogo.png';
+import memoriesText from '../../images/memoriesText.png';
 import decode from 'jwt-decode';
 import useStyles from './styles';
 import memories from '../../images/WHALE_2_3.png';
@@ -34,10 +37,15 @@ const Navbar = () => {
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
-            <Container>
-                <Typography className={classes.heading} component={Link} to="/" variant="h2" align="center">Memories</Typography>
-                <img className={classes.image} src={memories} alt="memories" height="60"/>
-            </Container>
+
+            {/* <Container component={Link} to="/" className={classes.brandContainer}>
+                <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" />
+                <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+            </Container> */}
+            <Link to="/" className={classes.brandContainer}>
+                <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" />
+                <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+            </Link>
             <Toolbar >
             {user ? (
                 <div className={classes.profile}>

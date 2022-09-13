@@ -1,12 +1,12 @@
 import * as api from '../api';
-import {LIKE, DELETE, CREATE, UPDATE, FETCH_ALL} from '../constances/actionTypes'
+import {LIKE, DELETE, CREATE, UPDATE, FETCH_ALL, FETCH_BY_SEARCH} from '../constances/actionTypes'
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
 
     try {
-        const { data } = await api.fetchPosts();
+        const { data: {data, currentPage, totalPage} } = await api.fetchPosts(page);
 
-        dispatch({type: FETCH_ALL, payload: data});
+        dispatch({type: FETCH_ALL, payload: {data, currentPage, totalPage}});
     } catch (error) {
         console.log(error.message); 
     }
@@ -18,7 +18,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         const { data } = await api.getPostsBySearch(searchQuery);
 
-        dispatch({type: FETCH_ALL, payload: data});
+        dispatch({type: FETCH_BY_SEARCH, payload: data});
     } catch (error) {
         console.log(error.message); 
     }
