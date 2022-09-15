@@ -52,10 +52,6 @@ const Home = () => {
         }
     }
 
-    useEffect(() =>{
-        dispatch(getPosts());
-    }, [currentId, dispatch])
-
     return (
             <Grow in>
                 <Container maxWidth="xl" >
@@ -73,7 +69,7 @@ const Home = () => {
 
                             <Form currentId={currentId} setCurrentId={setCurrentId} />
                             <Paper elevation={6}>
-                                <Pagination />
+                                <Pagination  page={page}/>
                             </Paper>
                         </Grid>
                     </Grid>

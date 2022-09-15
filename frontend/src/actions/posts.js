@@ -5,7 +5,7 @@ export const getPosts = (page) => async (dispatch) => {
 
     try {
         const { data: {data, currentPage, totalPage} } = await api.fetchPosts(page);
-
+        
         dispatch({type: FETCH_ALL, payload: {data, currentPage, totalPage}});
     } catch (error) {
         console.log(error.message); 
@@ -17,6 +17,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
     try {
         const { data } = await api.getPostsBySearch(searchQuery);
+        console.log(data);
 
         dispatch({type: FETCH_BY_SEARCH, payload: data});
     } catch (error) {

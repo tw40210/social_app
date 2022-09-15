@@ -4,6 +4,7 @@ import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req,res) => {
     const {page} = req.query;
+    console.log(page)
 
 
     try {
@@ -14,6 +15,7 @@ export const getPosts = async (req,res) => {
         res.status(200).json({data:postMessages, currentPage:Number(page), totalPage:Math.ceil(total/LIMIT)});
 
     } catch (error) {
+        console.log(`This is error message: ${error.message}`)
         res.status(404).json({message: error.message})
     }
 }
@@ -24,10 +26,12 @@ export const getPostsBySearch = async (req,res) => {
     try {
         const title = RegExp(searchQuery, "i")
 
-        const postMessages = await PostMessage.find({$or: [{title}, {tags: {$in: tags.split(',')}}]});
+        const postMessages = await PostMessage.find(tags!=='' ? {$or: [{title}, {tags: {$in: tags.split(',')}}]} : {$or: [{title}]});
         
-        res.status(200).json(postMessages);
+        
+        res.status(200).json({data: postMessages});
     } catch (error) {
+        console.log(`This is error message: ${error.message}`)
         res.status(404).json({message: error.message})
     }
 }
