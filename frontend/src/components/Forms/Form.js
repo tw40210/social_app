@@ -28,7 +28,6 @@ const Form = ({currentId, setCurrentId})=>{
         if (currentId) {
             dispatch(updatePost(currentId, {...postData, name: user?.result?.name}))
         } else{
-            console.log("Creating", {...postData, name: user?.result?.name})
             dispatch(createPost({...postData, name: user?.result?.name}))
         }
         clear();
@@ -50,7 +49,7 @@ const Form = ({currentId, setCurrentId})=>{
     }
 
     return (
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={6}>
             <form autoComplete="off" noValidate className={`${classes.roots} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{currentId ? "Editing" : "Creating"} a memory</Typography>
                 {/* <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e)=>{setPostData({...postData, creator:e.target.value})}}/> */}

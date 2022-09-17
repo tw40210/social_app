@@ -4,7 +4,8 @@ import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req,res) => {
     const {page} = req.query;
-    console.log(page)
+    const start_time = Date.now()
+    
 
 
     try {
@@ -12,7 +13,9 @@ export const getPosts = async (req,res) => {
         const startIndex = (Number(page)-1)*LIMIT;
         const total = await PostMessage.countDocuments({});
         const postMessages = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
+
         res.status(200).json({data:postMessages, currentPage:Number(page), totalPage:Math.ceil(total/LIMIT)});
+        
 
     } catch (error) {
         console.log(`This is error message: ${error.message}`)

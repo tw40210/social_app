@@ -1,7 +1,11 @@
-import {LIKE, DELETE, CREATE, UPDATE, FETCH_ALL, FETCH_BY_SEARCH} from '../constances/actionTypes'
+import {LIKE, DELETE, CREATE, UPDATE, FETCH_ALL, FETCH_BY_SEARCH, START_LOADING, END_LOADING} from '../constances/actionTypes'
 
-const posts = (state = [], action) => {
+const posts = (state = {isLoading: true, posts: []}, action) => {
     switch (action.type) {
+        case START_LOADING:
+            return { ...state, isLoading: true}
+        case END_LOADING:
+            return { ...state, isLoading: false}
         case LIKE:
             return { ...state, posts: state.posts.map((post)=> post._id===action.payload._id ? action.payload : post)};
         case DELETE:

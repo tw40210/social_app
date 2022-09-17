@@ -44,7 +44,6 @@ const Auth = () => {
     
     const handleOnSubmit = (e)=>{
         e.preventDefault()
-        console.log(formState)
 
         if(isSignUp){
             dispatch(signUp(formState, navigate));
