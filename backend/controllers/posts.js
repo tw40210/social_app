@@ -38,7 +38,9 @@ export const getPosts = async (req,res) => {
 }
 
 export const getPostsBySearch = async (req,res) => {
+    console.log(req.query)
     const {searchQuery, tags} = req.query
+    
 
     try {
         const title = RegExp(searchQuery, "i")
