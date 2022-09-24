@@ -78,7 +78,19 @@ export const updatePost = async (req, res) => {
 
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, {...post, _id}, { new: true});
 
-    res.json(updatedPost);
+    res.status(201).json(updatedPost);
+}
+
+export const commentPost = async (req, res) => {
+    const {comment} = req.body;
+    const {id} = req.params;
+
+    const post = await PostMessage.findById(id)
+    post.comments.push(comment)
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true});
+
+    res.status(201).json(updatedPost);
 }
 
 export const deletePost = async (req, res) => {
